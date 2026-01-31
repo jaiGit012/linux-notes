@@ -1,0 +1,150 @@
+
+What is SSH?
+SSH, also known as Secure Shell or Secure Socket Shell, is a  cryptographic network protocol that gives users, particularly system administrators,a secure way to access a computer over an unsecured network.
+its that provide secure encrypted communications between two untrusted hosts over an insecure network.
+
+
+Install OpenSSH Server Software Package
+======================================================
+#yum –y install openssh openssh-server openssh-clients
+
+
+default port 22
+
+configuration files
+======================
+/etc/ssh/sshd_config 
+/etc/ssh/ssh_config 
+
+service name
+================
+sshd
+
+ Starting SSH Service
+===========================
+sudo systemctl start sshd
+
+Check sshd status
+===========================
+sudo systemctl status sshd
+
+Enable OpenSSH Service
+===========================
+sudo systemctl enable sshd
+
+To disable SSH after reboot enter:
+===========================
+sudo systemctl disable sshd
+
+
+OpenSSH Server Configuration
+
+#vim /etc/ssh/sshd_config
+
+PermitRootLogin no
+Port 2002
+AllowUsers user3
+
+echo "DenyUsers user1" >> /etc/ssh/sshd_config
+
+ssh user2@192.168.1.4
+user2@192.168.1.4's password: 
+Permission denied, please try again.
+
+ssh cli
+============
+
+# ssh <user_name>@ <server_IP> (or)<server_name>
+
+#ssh balaji@192.168.44.11
+
+
+Command execution over SSH
+================================
+#ssh balaji@192.168.44.11 uname
+
+#ssh balaji@vm-1.glotech.com "uname;hostname;date"
+
+#ssh balaji@192.168.44.11 "uptime && free -m"
+
+#ssh balaji@192.168.44.11  "top -bc | head -n 35" > /tmp/top-output.txt
+
+#!/bin/sh
+uname
+hostname
+chmod +x system-info.sh
+#ssh balaji@vm-1.glotech.com ./system-info.sh
+
+secure copy
+===============
+
+copy file to remote server
+==============================
+#scp /root/securefile root@192.168.44.11:/tmp
+
+copy directory to remote server
+===================================
+
+#scp -r /tmp/dir1 madhu@192.168.44.11:/home/madhu
+
+
+copy file from remote server to local server
+==============================================
+
+#scp root@192.168.44.11:/tmp/file1  /media/file2
+
+copy directory  from remote server to local server
+=======================================================
+
+#scp -r root@192.168.44.11:/tmp/dir1 /mnt
+
+Configure password-less SSH session (Key based authendication)
+===================================================================
+
+
+1) Generate public-private key pair
+
+# ssh-keygen
+
+id_rsa
+id_rsa.pub
+
+2)  Add public key to ~/.ssh/authorized_keys file on remote host
+
+
+# ssh-copy-id -i ~/.ssh/id_rsa.pub balaji@192.168.44.11
+
+-i option indicates identity file
+~/.ssh/id_rsa.pub is identity file
+remaining text is remote user and remote server IP
+
+
+
+# ssh balaji@192.168.44.11
+
+
+
+
+
+ssh directory for users
+=========================
+root - /root/.ssh
+
+user1 - /home/user1/.ssh
+
+
+
+
+SFTP
+======
+sftp root@192.168.1.10
+
+share file windows -----> linux | linux -----> windows using sftp and scp
+
+winscp
+filezilla
+
+id_rsa
+id_rsa.pub
+
+authorized_keys

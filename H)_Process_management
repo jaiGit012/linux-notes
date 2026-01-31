@@ -1,0 +1,341 @@
+Linux Process Management
+
+What is a Process
+===================
+An instance of a program is called a Process. In simple terms, any command that you give to your Linux machine starts a new process
+
+
+Types of Processes in Linux
+=============================
+
+Foreground Processes: They run on the screen and need input from the user. For example Office Programs
+Background Processes: They run in the background and usually do not need user input. For example Antivirus.
+
+
+To list the processes
+=====================
+# top
+#ps ­efa
+#ps -ef
+
+To list all running processes
+============================
+
+#ps ­aux |less
+
+TO list a specific user's processes
+===================================
+
+#ps ­u username
+
+
+To customize the output of ps ­aux
+====================================
+
+#ps ­aux
+
+OUTPUT
+
+USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
+
+# ps ­eo user,cpu,cmd ­­­­> option ­e is used for editing and option ­o is used to user define.
+#  ps eo uid,user,pid,ppid,stat,cpu,cmd
+
+
+
+
+
+
+fg
+bg
+
+jobs
+
+
+
+#ps 
+-a -> Shows information about all users.
+-x -> Shows information about processes without terminals.
+-e -> Displays extended information.
+-u -> Shows additional information like -f option.
+
+
+Parent process:
+=================
+In Linux all the processes have a parent process. When the user creates a process in that case the kernel process becomes
+ the parent of that process.
+
+Every Linux process has two ID's assigned to it, the Process ID (pid) and the Parent process ID (ppid).
+
+For example:
+
+[root@machine1 ~]# sleep 1000 &
+[1] 1971
+[root@machine1 ~]# ps -f
+UID          PID    PPID  C STIME TTY          TIME CMD
+root        1589    1588  0 09:25 pts/0    00:00:00 -bash
+root        1971    1589  0 09:26 pts/0    00:00:00 sleep 1000
+root        1972    1589  0 09:26 pts/0    00:00:00 ps -f
+[root@machine1 ~]# pidof sleep
+1971
+[root@machine1 ~]# pstree 1589
+bash---pstree
+     +-sleep
+[root@machine1 ~]#
+
+
+Child Processes:
+=================
+The processes which gets created by another process it'ns parent process known as child process.
+
+In our above example, the sleep process with PID 1971 is a child process of the bash process with PID 1589.
+
+
+Daemon process:
+===============
+The system related background running processes are called Daemon Processes. 
+When you see a process running with a ? mark in sixth column (TTY field), that's a daemon process.
+
+[root@machine1 ~]# ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 09:24 ?        00:00:02 /usr/lib/systemd/systemd --switched-root --system --deserialize 18
+root           2       0  0 09:24 ?        00:00:00 [kthreadd]
+root           3       2  0 09:24 ?        00:00:00 [rcu_gp]
+root           4       2  0 09:24 ?        00:00:00 [rcu_par_gp]
+root           5       2  0 09:24 ?        00:00:00 [kworker/0:0-events]
+root           6       2  0 09:24 ?        00:00:00 [kworker/0:0H-events_highpri]
+root           7       2  0 09:24 ?        00:00:00 [kworker/0:1-events]
+root           8       2  0 09:24 ?        00:00:00 [kworker/u256:0-events_unbound]
+root           9       2  0 09:24 ?        00:00:00 [mm_percpu_wq]
+root          10       2  0 09:24 ?        00:00:00 [ksoftirqd/0]
+root          11       2  0 09:24 ?        00:00:00 [rcu_sched]
+
+
+Zombie processes:
+=================
+At times there are processes which are already dead but still shows up in process list are called Zombie processes.
+These processes can be found while doing ps listing, the process with a Z state are zombie processes.
+ They don't consume any CPU resources.
+
+
+The process status can be any of the following:
+
+R: Running
+
+S: Sleeping
+
+D: Uninterruptible sleep
+
+T: Traced (stopped state)
+
+Z: Zombie
+
+
+
+1) R :­ Running process which is executed on cpu.
+
+2) S :­ Sleeping or waiting process. This process is in waiting stage for a signal.
+
+3) D :­ Uninterruptable. This process is in sleeping process which will not respond to a signal.
+
+4) T :­ Stopped process or suspended process. This process can be continued by another signal to return to running process.
+
+5) Z :­ Zombie process. This is a child process sending its parent process an exit signal.
+
+
+TASK_RUNNING(R)		- task (process) currently running
+TASK_INTERRUPTABLE (S)	- process is sleeping but can be woken up (interrupted)
+TASK_UNINTERRUPTABLE(D)	- process is sleeping but can not be woken up (interrupted)
+TASK_ZOMBIE	(Z)		- process terminated but its status was not collected (it was not waited for)
+TASK_STOPPED(T)		- process stopped by a debugger or job control
+
+su -  mahesh
+ ps ux
+
+
+#ps f 
+#ps -f 1
+#ps -f 26500
+
+#pidof bash
+
+
+# ps -u balaji
+
+
+#pgrep sshd
+#pgrep -l sshd
+
+
+
+#pkill sleep
+#killall
+
+#kill -l
+#kill -9
+
+
+#ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:
+
+
+SCHEDULING PRIORITIES
+=====================
+
+Every process have scheduling priorities.
+
+The value which is assigned for scheduling the priorities is called "NICE VALUE"
+Nice value range is -­20 to 19
+­-20
+­-19
+­-18
+­-17
+­-16
+­-15
+­-14
+­-13
+­-12
+­-11
+­-10
+­-9
+­-8
+­-7
+­-6
+­-5
+­-4
+­-3
+­-2
+­-1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+11
+12
+13
+14
+15
+16
+17
+18
+19
+
+The default nice value of a process is 0.
+High nice value process means low CPU usage.(19)
+Low nice value means High CPU usage.(-20)
+The root user can increase or decrease the priorities of a process.
+The normal user can only increase the priority of a process.
+
+#ps ­eo user,pid,ni,cmd
+
+Here NI is nice value
+­­­­­­­­­­­­­­­­­­­­­
+
+USER 	PID 	NI 	CMD
+root 	1 	0 	/usr/lib/systemd/systemd
+
+To schedule priorities.
+=======================
+
+1) For running process
+­­­­­­­­­­­­­­­­­­­­­­­
+# renice nicevalue PID
+# renice ­3 15232
+
+2) For new process
+­­­­­­­­­­­­­­­­­­­­
+
+# nice ­n nicevalue command
+
+# nice ­-n ­7 cat
+# nice -n -20 seq 100000000000000000000 > /dev/null
+
+
+
+
+
+
+top
+=====
+
+us: Amount of time the CPU spends executing processes for people in “user space.”
+sy: Amount of time spent running system “kernel space” processes.
+ni: Amount of time spent executing processes with a manually set nice value.
+id: Amount of CPU idle time.
+wa: Amount of time the CPU spends waiting for I/O to complete.
+hi: Amount of time spent servicing hardware interrupts.
+si: Amount of time spent servicing software interrupts.
+st: Amount of time lost due to running virtual machines (“steal time”).
+
+
+PID: Process ID.
+USER: The owner of the process.
+PR: Process priority.
+NI: The nice value of the process.
+VIRT: Amount of virtual memory used by the process.
+RES: Amount of resident memory used by the process.
+SHR: Amount of shared memory used by the process.
+S: Status of the process. (See the list below for the values this field can take).
+%CPU: The share of CPU time used by the process since the last update.
+%MEM: The share of physical memory used.
+TIME+: Total CPU time used by the task in hundredths of a second.
+COMMAND: The command name or command line (name + options).
+==============================================================================================================================================
+Changing the Summary Contents - l,1,t,m
+k - Kill a Process
+z - Color and Highlighting
+
+Sorting by Columns
+P: The %CPU column.
+M: The %MEM column.
+N: The PID column.
+T: The TIME+ column.
+
+c - See the Full Command Line
+u - See Processes for a Single User
+n - Set How Many Processes to Display
+r - Renice a Process
+d or s to change the delay time
+
+
+
+
+uptime
+w
+df -h 
+free -h
+cat /proc/cpuinfo
+cat /proc/meminfo
+
+
+Check CPU core
+================
+#nproc
+#cat /proc/cpuinfo
+#lscpu
+#top
+
+
+
+========================================================================================================================================
+
+Command 	Description
+
+bg	To send a process to the background
+fg      To run a stopped process in the foreground
+top	Details on all Active Processes
+ps	Give the status of processes running for a user
+ps PID	Gives the status of a particular process
+pidof	Gives the Process ID (PID) of a process
+kill PID	Kills a process
+nice	Starts a process with a given priority
+renice	Changes priority of an already running process
+df	Gives free hard disk space on your system
+free	Gives free RAM on your system

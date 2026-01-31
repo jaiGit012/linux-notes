@@ -1,0 +1,60 @@
+Linux Networking
+=====================
+
+Class A – the classful subnet mask is /8. The number of possible IP addresses is 16,777,216 (2 to the power of 24).
+Class B – the classful subnet mask is /16. The number of addresses is 65,536
+Class C – the classful subnet mask is /24. Only 256 addresses are available.
+
+
+set the dynamic IP address
+============================
+
+selete VM ---> settings ---> Add Network adapter
+
+# ifconfig (check the IF name)
+
+# nmcli device show
+
+# nmcli device connect ens160
+
+
+set the static IP address
+============================
+selete VM ---> settings ---> Add Network adapter
+
+# ifconfig (check the IF name)
+
+# nmcli device show
+
+# nmcli connection status
+
+# nmcli con add type ethernet con-name ens160 ifname ens160 ipv4.addresses 192.168.159.51/24 ipv4.gateway 192.168.0.1 autoconnect yes ipv4.method manual
+# nmcli con add type ethernet con-name ens160 ifname ens160 ip4 192.168.159.51/24 gw4 192.168.0.1 autoconnect yes ipv4.method manual
+
+
+
+command to check gateway
+==========================
+# netstat -rn
+# route -n
+
+To check ethernet card status
+==============================
+#ethtool ens160
+#ethtool ens192
+
+255.255.255.0
+connection modify
+====================
+
+# nmcli con modify ens160 ipv4.addresses 192.168.2.100/24
+# nmcli con mod ens160 ipv4.gateway 192.168.2.1
+# nmcli con mod ens160 ipv4.dns 8.8.8.8
+# nmcli con mod ens160 ipv4.method manual
+# nmcli con mod ens160 connection.autoconnect yes
+
+#nmcli con modify ens160 ipv4.addresses 192.168.2.100/24 ipv4.gateway 192.168.2.1 ipv4.method manual connection.autoconnect yes
+
+To Monitor IP Packets
+=====================
+iptraf-ng

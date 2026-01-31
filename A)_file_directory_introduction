@@ -1,0 +1,203 @@
+
+Command to create directory
+============================
+
+#mkdir [option] dir_name
+
+#mkdir dir1
+
+Create Multiple Directories
+------------------------------
+#mkdir dir1 dir2
+
+#mkdir dir{1..10}
+
+
+Create Parent Directories
+------------------------------
+#mkdir -p /opt/sport/test/dir1
+
+
+
+Command  to create file
+=========================
+#touch file1
+
+#touch file1 file2 file3
+
+#touch file{1..10}
+
+
+
+Create file & overwrite a file
+-----------------------------------
+#cat > testfile1
+This is test file
+ctrl+D 
+
+Append data to a file
+-----------------------------
+#cat >> testfile1
+This is second line to append
+test data
+ctrl+D
+
+
+
+
+view file content
+=================
+# cat <file_name>
+
+
+
+
+Remove file
+=============
+rm file1
+rm -f dir1
+
+
+Remove directory
+=================
+#rmdir dir1
+#rm -r dir1
+#rm -rf dir1
+
+
+Change directory
+=================
+
+cd <dir_name> -  move/navigate to a directory
+cd <dir_name>/<dir2_name>/<dir3_name>
+
+
+cd ../ -  move to the parent directory
+cd ../.. 
+cd - - will change the user to the old directory.
+cd   - move to user home diretory
+cd ~ - move to user home diretory
+
+cd ~ or cd by itself will always bring the user to the home directory.
+
+list
+=====
+
+ls
+ls -l
+ls -ld
+ls -la
+ls -ltr
+ls -iR
+
+ls COMMAND options
+=================================
+#ls -iadRrlt
+i to list the file's i node number
+a to list the hidden files and folders
+d to list only directories
+R to list the tree structure of a directory
+l to list the all information about files and folders
+r to list file and folders in reverse order
+t to list files and folders according to time stamp
+
+#pwd - print preset working directory (which path you are)
+
+Fundamental file types in Linux
+=========================
+- a regular file
+d a directory/folder
+l link file
+s socket file (stores information of kernel)
+p pipe file 
+c character file (example terminal)
+b block file (device file)
+
+
+#cat <filename>
+#cat /etc/ssh/sshd_config
+
+#cat /etc/ssh/sshd_config|head
+#cat /etc/ssh/sshd_config|head -20
+#head -n 20 /etc/ssh/sshd_config
+
+#cat /etc/ssh/sshd_config|tail -n 15
+#tail /etc/ssh/sshd_config
+
+#cat /etc/ssh/sshd_config|less
+#less /etc/ssh/sshd_config
+
+#cat /etc/ssh/sshd_config|more
+#more /etc/ssh/sshd_config
+
+grep
+====
+cat /etc/passwd|grep balaji
+
+cat /etc/passwd|grep -i balaji
+
+cat /etc/passwd|grep -v balaji
+
+cat /etc/passwd|grep -A2 balaji
+
+cat /etc/passwd|grep -B2 balaji
+
+# cat /etc/passwd|grep -E 'balaji|hari'
+
+Copy File to Another Directory in Linux
+=======================================
+#cp <source_file> <destination_file>
+
+#cp my_file.txt /tmp
+
+#cp /etc/my_file.txt /tmp
+
+
+Copy Multiple Files from One Directory
+======================================
+#cp my_file.txt my_file2.txt my_file3.txt /new_directory
+
+Copy Directories 
+================
+#cp -R <source_folder> <destination_folder>
+
+#cp -R /etc /etc_backup
+
+Copy multiple directories p
+===========================
+
+#cp -R /etc/* /home/* /backup_folder
+
+mv
+
+Move file to directory
+======================
+File
+----
+#mv file1 /tmp/
+
+Directory
+---------
+#mv test-dir /tmp/
+
+Rename file
+===========
+#mv file1 file2
+
+Rename directory
+================
+
+#mv test-dir test-1
+
+
+clear
+echo ' This test file' > file1
+
+uname
+ifconfig
+df –h
+
+command;command; 
+whoami
+who am i
+w

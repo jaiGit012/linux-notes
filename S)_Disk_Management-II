@@ -1,0 +1,212 @@
+LOGICAL VOLUME MANAGER(LVM)
+================================
+What is LVM? 
+
+LVM stands for Logical Volume Manager , to resize file system’s size online we require LVM partition in Linux. Size of LVM partition can be extended and reduced using the lvextend & lvreduce commands respectively.
+
+
+Physical Volume – It’s a raw hard drive that it initialized to work with LVM, such as /dev/sdb, /dev/sdc, /dev/sdb1 etc.
+
+Volume Group – Many PV is combined into one VG. You can create many VGs and each of them has a unique name.
+
+Logical Volume – You can create many LVs from a VG. You can extend, reduce the LV size on the fly. The LV also has unique names.
+You format the LV into ext4, zfs, btrfs etc filesystems, mount it and use it as you do other ordinary partitions.
+
+
+#dd if=/dev/zero of=/prd-data/test bs=1G count=6
+
+
+Partitions based Filesystem
+=================================
+
+Hard Disks --> Partitions --> filesystem --> mount
+
+LVM based Filesystem
+=========================
+Hard Disks --> Partitions --> Physical Volume --> Volume Group --> Logical Volume --> filesystem --> mount
+
+
+
+#lvmdiskscan
+
+
+
+
+
+
+create LVM
+===========
+
+Hard Disks --> Partitions 
+
+
+create physical volume
+=======================
+
+#pvcreate /dev/sdb1
+
+create volume group
+=======================
+#vgcreate vg_oracle /dev/sdb1
+
+create logical volume
+=======================
+#lvcreate -L +5G -n lv_oracle vg_oracle
+#lvcreate --size +5G --name lv_oracle vg_oracle
+#lvcreate -l +256 -n lv_oracle vg_oracle
+#lvcreate -l +100%FREE -n lv_oracle vg_oracle
+#lvcreate -l +50%FREE -n lv_oracle vg_oracle
+
+
+create filesystem
+=================
+#mkfs.xfs /dev/vg_oracle/lv_oracle
+#mkfs.ext4 /dev/vg_oracle/lv_oracle
+
+#mkfs -t xfs /dev/vg_oracle/lv_oracle
+#mkfs -t ext4 /dev/vg_oracle/lv_oracle
+
+
+mount the filesystem
+=====================
+#mkdir /oracle_data
+#mount /dev/vg_oracle/lv_oracle /oracle_data
+
+
+
+command to check mounted filesystem 
+====================================
+#df -h
+
+
+
+
+List pv,vg,lv details
+======================
+#pvdisplay
+#pvs
+
+#vgdisplay
+#vgs
+#vgdisplay /dev/vg00 -v
+
+#lvdisplay
+#lvs
+# lvdisplay /dev/vg00/lv00 -m
+
+
+
+#df -h
+
+
+Remove LVM
+============
+Remove fstab entry first 
+ 
+#umount /oracle
+
+#lvremove /dev/vg_oracle/lv_oracle
+
+# vgremove /dev/vg_oracle
+
+
+#pvremove /dev/sdb1
+
+#lsblk
+
+
+
+
+Reduce LVM partition size in RHEL (ext4) [we cant't reduce xfs filesystem]
+===================================================================================
+
+1. Umount the file system
+
+#umount /oracle_data
+
+2.check the file system for Errors using e2fsck command
+
+#e2fsck -f /dev/vg_oracle/lv_oracle
+
+33Reduce or Shrink the size of /home to desire size.
+
+#resize2fs /dev/vg_oracle/lv_oracle 3G
+
+4.Now reduce the size using lvreduce command
+
+#lvreduce -L 3G /dev/vg_oracle/lv_oracle
+
+5.(Optional) For the safer side, now check the reduced file system for errors
+
+#e2fsck -f /dev/vg_oracle/lv_oracle
+
+6.Mount the file system and verify its size
+
+#lvs
+#mount /dev/vg_oracle/lv_oracle /oracle_data
+#df -h
+
+
+
+
+LVM files
+===========
+
+/etc/lvm/archive
+/etc/lvm/backup
+/etc/lvm/lvm.conf
+
+pvscan
+lvscan
+vgscan
+
+#vgextend
+#vgremove
+
+
+#vgrename <old_vg_name> <new_vg_name>
+
+#lvrename
+#lvrename <vg_name> <old_lv_name> <new_lv_name>
+
+
+#lsblk
+#lsscsci
+
+
+
+#lsblk
+#lvmdiskscan
+
+#vgrename <old name> <new name> 
+#lvrename <vg name> <old name> <new name>
+
+
+
+pvs
+vgs
+lvs
+pvdisplay
+vgdisplay
+lvdisplay
+
+vgextend
+lvextend
+lvreduce
+lvremove
+
+#parted /dev/sdb 
+
+(parted) mklabel gpt
+(parted) mkpart primary xfs 0% 100%
+(parted) set 1 lvm on
+(parted) print
+(parted) print free
+
+(parted) rm 1
+(parted) print free
+
+
+#parted /dev/sdb mkpart primary xfs 0% 100%
+#parted set 1 lvm on
+#parted /dev/sdb rm 1

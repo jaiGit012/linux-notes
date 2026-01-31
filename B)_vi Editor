@@ -1,0 +1,168 @@
+VI Editor
+===========
+
+Windows
+==========
+Notepad
+Notepad++
+
+Linux
+=======
+
+CLI - vi,vim,nano,ex
+GUI - getit,gvim,picp,netit,emacs
+
+1) cat
+=======
+cat(concatenate) command allows us to create single file, view contents of file, concatenate files and redirect output in terminal or files.
+
+Example of creating file or files using cat command
+
+#cat > filename
+
+To create hidden file
+
+#cat > .file
+
+2) touch
+=======
+The touch command is the easiest way to create new, empty files that is 0kb file.
+Example of creating file or files using touch command.
+ 
+To create an empty file
+======================= 
+#touch file1
+
+To create multiple empty files
+===============================
+#touch file1 file2 file3 file4
+#touch file{1..4}
+
+To create hidden empty file
+===========================
+#touch .hiddenfile
+
+
+Tools to Create file
+========================
+Cat (concatenate)
+Vim (Visual Instrument iMproved)
+touch
+Vi (Visual Instrument)
+nano
+
+
+1 vi (Visual Instrument)
+=========================
+Is a screen-oriented text editor originally created for the Unix operating system.
+
+ # vi filename
+
+ # vi .filename
+
+2.vim (Visual Instrument iMproved )
+====================================
+
+The vim editor is an enhanced version of vi.
+
+# yum install vim-enhanced -y
+ 
+#vim filename
+
+# vim .filename
+
+
+3) nano
+========
+This is command line note pad
+
+# nano filename
+
+
+What is the difference between Vim and Vi
+==============================================
+
+Vim :- Basically 'vim' is an Text editor which opens a blank file which you can edit and save it. 
+By using vim editor file content can be encrypted.
+
+Vi :- file content can not be encrypted. 
+
+Vi, vim, gvim editors modes
+===============================
+• Command Mode - press Esc (default mode)
+• Insert Mode - press i,I,A,a,o,O
+• Execution Mode (or) Escape Mode - : (shift + ;)
+
+• Command Mode () :- default mode. In this mode we can copy, paste and delete.
+  ================
+yy --> to copy a line in command mode
+3yy --> to copy three lines in commandmode
+p --> to paste copied line one time and paste the below the cursor
+P - paste the above the cursor
+4p --> to paste copied line 4 times
+dd --> to delete a line (or)cut
+4dd --> to delete 4 lines
+shift + g(G) --> moves the cursor to end of the file.
+gg --> moves the cursor to the beginning of file
+/word --> to search any key word in file
+?word
+n --> next search
+N --> previous search
+u --> undo
+ctrl + r --> redo 
+
+To move cursor in command mode
+=========================
+
+j k l h
+
+h - move to left
+j - move to down
+k - move to top
+l - move to right
+
+
+TO save and quit from command mode
+==============================
+
+shift + zz
+
+• Insert Mode :- content write mode which is needed to modify the file
+  ============   Shift form of command mode to Insert mode.
+
+
+i --> insert the text
+I --> insert the text in beginning of line
+a --> adds the text after the current cursor position
+A --> adds the text at the end of a line
+o --> inserts the text one line below current cursor position
+O --> inserts the text one line before current cursor position
+
+• Ex Mode :- extended command mode
+  ================================
+
+:q --> without saving quite from file
+:q! --> forcefully quite
+:w --> save the changes
+:w! --> forcefully save changes
+:wq --> save and quite
+:wq! --> forcefully save and quite (it will modify the time stamp )
+:x --> save and quite 
+:X --> to encrypt the file contents
+:25 --> moves cursor to 25th line
+:set nu --> to set line numbers to line in the file
+:set nonu --> remove line numbers
+:5d --> delete 5th line
+:$d --> delete last line
+:3,6d --> delet 3rd line to 6th line
+:$ --> place the cursor in the lat line
+
+
+TO search a word and replace it with new word
+===================================
+:%s/old/new/g
+
+
+Without opening a file and find and replace a word
+======================================= 
+# sed -e “s/old/new/g” filename

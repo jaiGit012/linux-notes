@@ -1,0 +1,133 @@
+
+To add a user into a group
+===========================
+#useradd -g groupname username
+
+useradd with predefined parameter
+======================================= 
+useradd -u 2000 -g 3000 -c 'test user' -d /home/test1 -s /bin/sh username
+useradd -M
+useradd -e '2021-12-25' username
+
+balaji:x:1001:1001::/home/balaji:/bin/bash
+
+-l - loginname
+-u - uid
+-g - gid
+-c - user comment
+-d - home directory
+-s - shell
+
+usermod 
+=======
+To rename user's account name
+==============================
+#usermod -l newname oldname
+
+
+To change user's UID
+====================
+#usermod -u 1076 username
+
+Changing the User Information
+==================================
+usermod -c "Test User" username
+
+To change the user's default home directory
+==============================
+#usermod -d /new/directory username
+
+To change the default shell of an user's account
+==============================
+# usermod -s /bin/sh username
+
+Setting a User Expiry Date
+=============================
+usermod -e "2022-02-21" username
+
+usermod -c 'test user' -u 2000 -g 1000 -d /home/user-3 -s /bin/bash -l user-3 user3
+
+Locking and Unlocking a User Account 
+======================================
+Lock
+====
+usermod -L USER
+
+Unlock
+======
+usermod -U USER
+ 
+To check the user's ID or UID with Group ID
+==============================
+#id username
+
+To verify the user's password information
+==============================
+# chage -l username
+
+To change user's minimum password expiry date
+=====================================
+# chage -m 5 username
+
+To change user's maximum password expiry date
+=====================================
+# chage -M 20 username
+
+To change user's minimum password expiry warning date
+============================================
+# chage -W 5 username
+
+To change user's password inactive date
+=====================================
+# chage -I 5 username
+
+To change user's password parameters
+=============================
+# chage -m 5 -M 20 -W 3 -I 7 username
+
+command -<option> 
+
+To set the user's account expiry date
+=============================
+# chage -E yyyy-mm-dd username
+
+To forcefully change the user's password immediately after first login
+====================================================
+# chage -d 0 username
+
+To see the information of groups
+==============================
+# cat /etc/group
+
+To create group
+==================
+#groupadd groupname
+
+Add user into a group
+======================
+#gpasswd -a user group
+or
+#usermod -a -G group user
+
+To change user's group ID (GID)
+==============================
+#groupmod -g GID username
+#groupmod -g 1087 username
+
+To change group's GID
+======================
+#groupmod -g GID groupname
+
+#groupmod -g 1087 groupname
+
+To rename a group
+=================
+#groupmod -n newgroup oldgroup
+
+lock the user password
+=========================
+passwd -l username
+
+unlock the userpasword
+========================
+passwd -u username

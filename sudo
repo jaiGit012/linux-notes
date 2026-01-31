@@ -1,0 +1,106 @@
+What is sudo?
+===========
+
+Sudo (super user do)sudo runs a command as root, whereas su makes you root user.
+
+sudo :- Allows a permitted user to execute a command as a super user as specified in the SUDOER's file .
+
+SUDO runs a single command with root privilege. SUDO it doesn’t switch to the root user or require a separate root user password.
+
+
+
+
+Syntax for individual user:
+===============================
+User  HOST=RunAs NOPASSWD:COMMAND
+mahesh ALL=(ALL) ALL
+balaji ALL=(ALL) ALL
+
+
+User  HOST=RunAs(user) NOPASSWD:COMMAND
+mahesh ALL=(balaji) ALL
+
+
+Syntax for individual group:
+==============================
+%group  HOST=RunAs NOPASSWD:COMMAND
+
+%admin ALL=ALL ALL
+
+
+
+
+Syntax for User_Alias:
+===========================
+ALIAS_VARIABLE  HOST=RunAs NOPASSWD:COMMAND
+
+
+#vi /etc/sudoers
+
+balaji ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart crond.service, PASSWD:/usr/bin/systemctl status crond.service
+mahesh ALL=(ALL) ALL
+daniel ALL=(ALL) !/bin/su !/bin/bash !/reboot
+niresh ALL=(daniel) ALL
+
+
+sudo -l
+
+sudo -U username -l 
+
+Change Your Interactive Shell
+sudo -i
+
+
+
+
+
+
+List User Privileges
+sudo -l (OR) sudo --list
+
+
+
+
+
+
+cat /var/log/secure	
+
+
+
+
+
+
+
+#visudo
+
+
+
+
+Aliases in sudoers file
+=============================  
+User_Alias
+Host_Alias
+Cmnd_Alias
+
+Host_Alias     MAILSERVERS = smtp, smtp2
+Cmnd_Alias DELEGATING = /usr/sbin/visudo, /bin/chown, /bin/chmod, /bin/chgrp
+User_Alias ADMINS = mahesh, niresh, daniel
+
+User_Alias ADMINS = balaji, muthu, vicky
+Cmnd_Alias ALLOW_CMD = /usr/sbin/fdisk ,/usr/sbin/useradd
+Cmnd_Alias DENY_CMD=!/bin/su,!/usr/sbin/reboot,!/usr/bin/passwd
+#Host_Alias     MAILSERVERS = smtp, smtp2
+
+
+ADMINS ALL=(ALL) ALLOW_CMD,DENY_CMD
+
+
+#daniel ALL=(ADMINS)    NOPASSWD: PROCESSES ,DELEGATING
+ADMINS  ALL=(ALL)       NOPASSWD: PROCESSES ,DELEGATING
+balaji  ALL=(ALL)       NOPASSWD: PROCESSES #,DELEGATING
+
+
+
+user1 ALL=(ALL) NOPASSWD: ALL
+
+user2 ALL=(ALL) NOPASSWD: /bin/echo /bin/ls

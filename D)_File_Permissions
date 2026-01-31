@@ -1,0 +1,222 @@
+
+
+Linux file permissons
+=====================
+
+Types of permissions
+1.Basic file/folder permissions
+2.Special file/folder permissions
+3.Access control list (ACL)
+
+Basic file/folder permissions
+========================================
+
+To check the default permission of a file/folder
+================================================
+# ls -l
+# ll
+
+-rw-r--r-- 1 root root 292 Dec  9 12:59 testfile1
+drwxr-xr-x 2 root root 54 Dec  8 16:10 secure
+
+Fields in ls -l command output
+===============================
+<file type> <file permission> <link count> <owner> <group> <file size> <last modify date and time> <file name
+
+File  type		      User		Group		Others
+====  ====          ====    =====   ======
+d     Directory		  rwx		  r-x		  r-x
+-     Regular file	rw-		  r--		  r--
+l     Symbolic Link	rwx		  rwx		  rwx
+
+
+
+ls COMMAND options
+=================================
+#ls -iadRrlt
+i to list the file's i node number
+a to list the hidden files and folders
+d to list only directories
+R to list the tree structure of a directory
+l to list the all information about files and folders
+r to list file and folders in reverse order
+t to list files and folders according to time stamp
+
+FILE
+====
+Read :- Permission to read the file content
+Write :- permission to modify the content
+Execute :- permission to run the script
+
+Director/Folder
+==========
+Read :- permission to list the contents (ls)
+Write :- permission to create or delete file/folder
+Execute :- permission to change directory
+
+In Linux, There are three general classes of access (access levels):
+================================================
+User (u) The user who owns the file.
+Group (g) Users belonging to the file's defined ownership group.
+Others (o) Everyone else.
+
+To change the default permission of a file/directory
+=====================================================
+# chmod (permission value) <file/directory > 
+
+We can use two method to set permissions to files/directories
+=============================================================
+1.octal or numaric  -->421
+2.symbolic --> rwx
+
+values
+======
+read - 4
+write - 2
+execute - 1
+
+
+rw 	rw	rw
+6	  6	  6
+
+1.Numaric method
+================
+#chmod 744 <file/directory>
+#chmod 744 <file/directory>
+#chmod 440 <file/directory>
+#chmod 244 <file/directory>
+
+
+2.Symbolic method
+=================
+#chmod u=rwx,g=rw,o=r <files/directory>
+#chmod u-x,g-rw,o+r <files/directory>
+#chmod a=rwx testfile1
+#chmod a-wx testfile1
+#chmod a+wx testfile
+
+Who (Letter)	Meaning
+====================
+u		user
+g		group
+o		others
+a		all
+
+
+
+Default permission for files/Directory
+----------------------------------------
+
+normal user
+775 - directory
+664 - file
+
+root
+755 - directory
+644 - file
+
+
+directory
+-------------
+777
+022 -
+----
+755
+
+666
+022-
+----
+644
+
+777
+221-
+----
+556
+
+777
+777-
+-----
+000
+
+umask
+------
+
+The user file creation mode mask (umask) is use to determine the file permission for newly
+created files. It can be used to control the default file permission for new files.
+
+umask value for root user -022
+
+umask value for Normal user -002
+
+full permission for file =666
+full permission for directory-777
+
+
+calculate default permission
+
+full permission - umask = default permission
+
+root users
+--------------
+File
+
+ 666
+-022
+----- 
+ 644
+
+Directory
+
+ 777
+-022
+------
+ 755
+
+
+Normal users
+---------------
+
+file
+
+ 666
+-022
+----- 
+ 644
+
+Directory
+
+ 777
+-022
+------
+ 755
+
+
+To chage umask value for individual user we need to put entry on .bash_profile
+
+umask 222
+
+To chage umask value for all users we need to modify value in /etc/profile
+
+To change the default ownership of a file/directory
+=====================================================
+To change both
+===============
+#chown <owner>:<group> <files/directory>
+
+#chown -R <owner>:<group> <files/directory>
+
+#chown <owner>: <files/directory>
+
+
+owner only
+------------
+#chown <owner> <files/directory>
+
+only group
+-----------
+#chown :<group> <files/directory>
+#chgrp <group> <files/directory>
+
+chmod - command to set permission to files/directoreis
+chown - command to change owner and group name of files/directories
+chgrp - command to change group name files/directories

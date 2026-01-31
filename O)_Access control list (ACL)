@@ -1,0 +1,51 @@
+Access control list (ACL)
+===============================
+
+An access ACL is the access control list on a specific file or directory for specific users or group members
+
+
+
+
+
+
+
+To verify the default acl on a file/folder
+==============================
+# getfacl file/foldername
+
+To set ACL on a file for a specific user
+=============================
+
+# setfacl -m u:username:rwx filename
+# setfacl -m 'u:username:7' filename
+
+To set ACL on a file for a specific group
+=============================
+# setfacl -m g:groupname:rwx filename
+# setfacl -m g:groupname:7 filename
+
+
+
+To remove ACL on a file for a specific user
+=============================
+setfacl -x u:username /secure
+
+To remove ACL on a file for a specific group
+=============================
+setfacl -x g:username /secure
+
+
+To remove all ACL 
+=============================
+
+# setfacl -b  file/directory   		#removing all ACL from file/direcoty
+
+getfacl -R /secure
+
+# setfacl -R -m g:groupname:rwx filename
+
+setfacl -x u:balaji:rwx
+
+getfacl 
+
+setfacl -b 

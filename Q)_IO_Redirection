@@ -1,0 +1,74 @@
+I/O Redirection
+-------------------
+
+
+
+
+1. stdin 0 - Standard input to the program.(0<)
+2. stdout 1 - Standard output from the program.(1>)
+3. stderr 2 - Standard error output from the program.(2>)
+
+
+Purpose										Command
+redirect std output to filename				> filename or 1> filename
+append std out to filename					>> filename
+append std out and std err to filename		>> filename 2>&1 or 1>> filename 2>&1
+take input from filename					< filename or 0 < filename
+redirect std error to filename				2> filename
+redirect std out and std error to file		1> filename 2>&1 or > filename 2>&1
+
+
+
+
+
+
+
+
+
+Standard INPUT/OUTPUT channels
+==========================
+1) Standard INPUT (keyboard)
+2) Standard OUTPUT (terminal/monitor)
+3) Standard error (terminal/monitor)
+
+TO REDIRECT STANDARD OUTPUT
+============================
+
+# command > file -->to redirect command Standard output to a file
+#command >> file -->to redirect and append Standard output to a file
+
+TO REDIRECT STANDARD INPUT
+============================
+
+# command < file --> send a file as input to a command
+
+TO REDIRECT STANDARD ERROR
+==============================
+
+# command 2> file -->to redirect command Standard error to a file
+#command 2>> file --> to redirect and append Standard error to a file
+#command &> file --> to redirect Standard output and error to a file
+
+To redirect standard Output into a file
+==============================
+
+# date > todayscommand
+
+To append standard output into a file
+============================
+
+# cal >> todayscommand
+# hostnamectl >> todayscommand
+
+To redirect standard Input from a file to command
+=======================================
+# tr "a-z" "A-Z" < softenfile
+# sort < filename
+
+To redirect standard error into a file
+=============================
+# data 2> filename
+
+To append standard error into a file
+==========================
+# hello 2>> filename

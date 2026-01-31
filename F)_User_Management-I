@@ -1,0 +1,143 @@
+
+USERS AND GROUP ADMINISTRATION IN LINUX
+================================================
+User :- A person who utilizes the Operating System services is a user.
+Group :- A group is collection of users.
+
+Linux Users
+============
+
+1) Super user or root user(0) :-The user with all permissions, access and privileges.
+
+2) Static system user(1-200) :- The user created by Operating System automatically. Like daemon
+user or binary user.
+
+3) System user(201-999) :- The user created when we install any package like DNS, HTTP
+(Apache)and chronyd because these services and daemons runs as a system user.
+
+4) Normal user(1000-60000) :- Manually created users are normal user. Not having much privileges,
+access and permissions.
+
+There are main user and group administration files:
+====================================================
+
+/etc/passwd 
+/etc/group 
+/etc/shadow 
+/etc/gshadow
+
+/etc/login.defs
+usedadd -D
+# cat /etc/default/useradd
+
+To see user related logs
+=============================
+# cat /var/log/secure |tail -2
+
+# ls -l /home
+
+fields in below files
+==========================
+
+/etc/passwd - Username: User's password mask : UID : GID : User Comment : home directory of user: Default log-in shell
+
+/etc/shadow - Username: Encrypted password:Last password change:Minimum :Maximum :Warning days:Inactive:Expire:reserverd
+
+/etc/group - Groupname:password:GID:Members of group
+
+/etc/gshadow - Groupname:group password:group id admin:Members of group
+
+
+
+#ls -l /home
+#ls -l /var/spool/mail/
+#cd /var/spool/mail/
+
+create an user account
+==========================
+#useradd username
+
+To see the information of users
+=============================
+#cat /etc/passwd
+
+To check the user's ID or UID with Group ID
+==============================
+#id username
+#id -un username
+#id -gn username
+
+To set user's password
+======================
+#passwd username
+
+To see the user password information
+==============================
+#cat /etc/shadow
+
+To remove password of a user
+==============================
+#passwd -d username
+
+To delete an user account
+==========================
+#userdel username
+
+To delete an user's account with its home directory and mail directory
+========================================================================
+#userdel --remove username
+or
+#userdel -r username
+
+To edit user's default parameters (/etc/default/useradd)
+==============================
+#vim /etc/default/useradd
+
+To list the currently login users
+==================================
+#w
+#who
+#whoami
+#who am i
+
+To create group
+==================
+#groupadd groupname
+
+To see the information of groups
+==============================
+# cat /etc/group
+
+Add user into a group (secondary group)
+======================
+#gpasswd -a user group
+or
+#usermod -a -G group user
+
+Remove user from a group
+===========================
+#gpasswd -d user group
+
+change users primary group
+==========================
+usermod -g groupname/id username
+
+To remove group
+==================
+#groupdel groupname
+
+check the password status
+=============================
+#passwd -S <username>
+
+To change ownership of file/folder
+========================
+#chown username file/folder
+
+ To change group ownership of file/folder
+=============================
+#chgrp groupname file/folder
+
+To change ownership and group ownership of file/folder
+==========================================
+#chown username:groupname file/folder

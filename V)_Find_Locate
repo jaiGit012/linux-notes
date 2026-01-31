@@ -1,0 +1,166 @@
+which locate 
+
+locate <dir name>
+locate <file name>
+
+
+
+
+
+
+1. Find Files Using Name in Current Directory
+	
+	# find . -name data.txt
+	
+	2. Find Files Under Home Directory
+	# find /home -name test.txt
+	
+	
+	3. Find Files Using Name and Ignoring Case
+	find /home -iname data.txt
+	
+	4. Find Directories Using Name
+	# find / -type d -name Data
+	
+	
+	5. Find PHP Files Using Name
+	# find . -type f -name index.php
+	
+	6. Find all PHP Files in the Directory
+	# find . -type f -name "*.php"
+	
+	
+	7. Find Files With 777 Permissions
+	# find . -type f -perm 0777 -print
+	
+	8. Find Files Without 777 Permissions
+	# find / -type f ! -perm 777
+	
+	9. Find SGID Files with 644 Permissions
+	# find / -perm 2644
+	10. Find Sticky Bit Files with 551 Permissions
+	# find / -perm 1551
+	
+	
+	11. Find SUID Files
+	# find / -perm /u=s
+	
+	12. Find SGID Files
+	# find / -perm /g=s
+	
+	
+	13. Find Read-Only Files
+	# find / -perm /u=r
+	
+	
+	14. Find Executable Files
+	# find / -perm /a=x
+	
+	
+	# find / -perm /a=x
+15. Find Files with 777 Permissions and Chmod to 644
+
+# find / -type f -perm 0777 -print -exec chmod 644 {} \;
+
+16. Find Directories with 777 Permissions and Chmod to 755
+
+# find / -type d -perm 777 -print -exec chmod 755 {} \;
+
+17. Find and remove single File
+
+# find . -type f -name "tecmint.txt" -exec rm -f {} \;
+
+18. Find and remove Multiple File
+
+# find . -type f -name "*.txt" -exec rm -f {} \;
+
+OR
+
+# find . -type f -name "*.mp3" -exec rm -f {} \;
+
+
+19. Find all Empty Files
+
+# find /tmp -type f -empty
+
+20. Find all Empty Directories
+
+# find /tmp -type d -empty
+
+21. File all Hidden Files
+# find /tmp -type f -name ".*"
+
+22. Find Single File Based on User
+
+# find / -user root -name tecmint.txt
+
+
+23. Find all Files Based on User
+
+# find /home -user tecmint
+
+24. Find all Files Based on Group
+# find /home -group developer
+
+25. Find Particular Files of User
+# find /home -user tecmint -iname "*.txt"
+
+
+26. Find Last 50 Days Modified Files
+
+# find / -mtime 50
+
+27. Find Last 50 Days Accessed Files
+
+# find / -atime 50
+
+28. Find Last 50-100 Days Modified Files
+
+# find / -mtime +50 –mtime -100
+
+29. Find Changed Files in Last 1 Hour
+
+# find / -cmin -60
+
+
+30. Find Modified Files in Last 1 Hour
+
+
+# find / -mmin -60
+31. Find Accessed Files in Last 1 Hour
+
+
+# find / -amin -60
+Part V – Find Files and Directories Based on Size
+32. Find 50MB Files
+
+
+# find / -size 50M
+33. Find Size between 50MB – 100MB
+
+
+# find / -size +50M -size -100M
+34. Find and Delete 100MB Files
+
+
+# find / -type f -size +100M -exec rm -f {} \;
+35. Find Specific Files and Delete
+
+
+# find / -type f -name *.mp3 -size +10M -exec rm {} \;
+
+
+
+-type
+-size
+-user
+-group
+-perm
+-delete
+-exec 
+-print
+-mtime
+-mmin
+-atime
+-amin
+-cmin

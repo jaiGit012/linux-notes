@@ -1,0 +1,110 @@
+Stop and disable firewalld
+================================
+#systemctl stop firewalld.service
+#systemctl disable firewalld.service
+#systemctl status firewalld.service
+
+Disable SELINUX
+=================
+#vi /etc/sysconfig/selinux
+SELINUX=disabled
+#setenforce 0
+#getenforce
+
+
+
+
+
+#Configure Local yum repository
+==========================================
+
+
+1. Attach the ISO image to your system
+
+select VM --> settings --> CD/DVD(IDE)--> Use ISO image file--> Browse --> seletc ISO
+
+2. confirm that the ISO is in the system
+#ls -ld /dev/sr0
+#ls -ld /dev/cdrom
+
+3. Create a mount point for the ISO
+#mkdir /iso
+
+4. Mount the ISO
+#mount /dev/cdrom /iso
+
+
+5. Verify the packages file.
+#cd /iso
+#ls
+
+6. copy the ISO image or packages to any existing directory or create any directory to copy the Packages to
+#mkdir /var/ftp/pub/AppStream
+#mkdir /var/ftp/pub/BaseOS
+
+#cd /iso
+#cp -rv AppStream/Packages /var/ftp/pub/AppStream/
+#cp -rv BaseOS/Packages /var/ftp/pub/BaseOS/
+
+
+
+7.if createrepo command is not installed,install that and create the repository
+#cd /iso/AppStream/Packages
+#rpm -ivh createrepo_c-0.11.0-1.el8.x86_64.rpm createrepo_c-libs-0.11.0-1.el8.x86_64.rpm drpm-0.3.0-14.el8.x86_64.rpm
+
+once createrepo command in available then create repository
+==============================================================
+#createrepo -v /var/ftp/pub/AppStream/Packages/
+#createrepo -v /var/ftp/pub/BaseOS/Packages/
+
+
+8. create the repository configuration file in the “/etc/yum.repos.d” directory and make sure it has the “.repo” extension
+
+#cd /etc/yum.repos.d
+
+
+#vi local.repo
+
+[Localrepo_BaseOS]
+name=Localrepo_BaseOS
+baseurl=file:///var/ftp/pub/BaseOS/Packages
+enabled=1
+gpgcheck=0
+
+
+[Localrepo_AppStream]
+name=Localrepo_AppStream
+baseurl=file:///var/ftp/pub/AppStream/Packages
+enabled=1
+gpgcheck=0
+
+
+
+If it is located on an FTP server, it is used in the format below,
+
+#yum install vsftpd -y
+# vi /etc/vsftpd/vsftpd.conf
+anonymous_enable=YES
+#systemctl start vsftpd;systemctl enable vsftpd
+
+[FTPrepo_BaseOS]
+name=FTPrepo_BaseOS
+baseurl=ftp://192.168.170.165/pub/BaseOS/Packages
+enabled=1
+gpgcheck=0
+
+
+[FTPrepo_AppStream]
+name=FTPrepo_AppStream
+baseurl=ftp://192.168.170.165/pub/AppStream/Packages
+enabled=1
+gpgcheck=0
+
+
+9. confirm the repository has been configured.
+
+#yum clean all
+#yum repolist
+#yum list all
+#yum install nfs-utils
+#yum install samba

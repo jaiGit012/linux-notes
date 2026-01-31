@@ -1,0 +1,101 @@
+Schecule task in linux
+=========================
+What is cron Command?
+The cron tool allows Linux users to execute commands or scripts at a specific date and time.
+It is very useful to perform regular tasks such as regular backups, daily scans,
+/tmp directory cleanup, and restarting the system at a given time.
+
+cron executes scheduled jobs automatically in the backend at a specific time. 
+Each user can have their own ctrontab, and this can be found it in “/var/spool”.
+
+cron jobs can be allowed or disallowed for any users by adding a user in the “cron.allow” and “cron.deny” file.
+
+1.Cron
+
+Package install
+=====================
+# yum install cronie  (or) crontabs
+
+service name
+===============
+[root@machine1 ~]# systemctl status crond
+? crond.service - Command Scheduler
+   Loaded: loaded (/usr/lib/systemd/system/crond.service; enabled; vendor prese>
+   Active: active (running) since Thu 2021-12-23 15:12:48 IST; 3 days ago
+ Main PID: 1109 (crond)
+    Tasks: 1 (limit: 11218)
+   Memory: 1.5M
+   CGroup: /system.slice/crond.service
+           +-1109 /usr/sbin/crond -n
+
+Dec 24 12:01:01 machine1.veecube.com CROND[4515]: (root) CMD (run-parts /etc/cr>
+Dec 24 13:01:01 machine1.veecube.com CROND[4554]: (root) CMD (run-parts /etc/cr>
+Dec 24 14:01:01 machine1.veecube.com CROND[4594]: (root) CMD (run-parts /etc/cr>
+Dec 24 15:01:01 machine1.veecube.com CROND[4640]: (root) CMD (run-parts /etc/cr>
+Dec 24 16:01:01 machine1.veecube.com CROND[4680]: (root) CMD (run-parts /etc/cr>
+Dec 24 17:01:01 machine1.veecube.com CROND[4720]: (root) CMD (run-parts /etc/cr>
+Dec 24 18:01:01 machine1.veecube.com CROND[4767]: (root) CMD (run-parts /etc/cr>
+Dec 24 19:01:01 machine1.veecube.com CROND[4805]: (root) CMD (run-parts /etc/cr>
+Dec 24 20:01:01 machine1.veecube.com CROND[4845]: (root) CMD (run-parts /etc/cr>
+Dec 24 21:01:01 machine1.veecube.com CROND[4885]: (root) CMD (run-parts /etc/cr>
+[root@machine1 ~]#
+
+Edit Crontab Entries
+=====================
+crontab -e
+
+* * * * 	* script.sh > /tmp/script_out
+*/5 * * * * 
+
+0 10 * * * 
+
+30 1 * * * *
+
+30 1,4,5 1-10 * *
+
+
+@daily
+@reboot
+@hourly
+@yearly
+
+List Existing Cron Jobs
+==========================
+crontab -l
+
+Remove Crontab Entry
+=====================
+crontab -r
+
+Edit crontab for a Different User
+===================================
+crontab -u username -e
+crontab -u username -r
+crontab -u username -l
+
+General Syntax of a Cron Job
+=================================
+MIN  	HOUR  	       Day of month 	Month         Day of Week 	Command
+0-59 	0-23 		1-31 		 1-12 		0-6 	Any Linux command or script
+
+User crontab files are defined in:
+
+/var/spool/cron/user_name
+/var/spool/cron
+/var/log/cron
+
+/etc/cron.deny
+/etc/cron.allow
+
+/var/log/cron
+
+/etc/cron.hourly
+/etc/cron.daily
+/etc/cron.monthly
+
+Note:
+======
+might be different timezone 
+If User account and password expired cron job will not work.
+If crond service is stopped cron job will not work.
+If var filesystem utilized 100% also cron job will not work.

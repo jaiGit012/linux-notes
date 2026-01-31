@@ -1,0 +1,85 @@
+What is YUM?
+
+YUM (Yellowdog Updater Modified) is an open-source command-line as well as graphical-based package management tool for RPM (RedHat Package Manager) based Linux systems.
+
+It allows users and system administrators to easily install, update, remove or search software packages on a system.
+
+
+1. Install a Package with YUM
+
+# yum install firefox
+#dnf install firefox
+
+# yum install firefox htttpd
+
+2. Removing a Package with YUM
+
+# yum remove firefox
+# yum remove firefox httpd
+# dnf remove firefox httpd
+
+3. Updating a Package using YUM
+
+# yum update mysql
+# dnf update mysql
+
+4. List a Package using YUM
+
+# yum list openssh
+# dnf list openssh
+
+5. Search for a Package using YUM
+
+# yum search vsftpd
+
+6. Get Information about a Package using YUM
+
+# yum info firefox
+
+7. List all Available Packages using YUM
+
+# yum list | less
+
+8. List all Installed Packages using YUM
+
+# yum list installed | less
+
+9. Yum Provides Function
+
+# yum provides /etc/httpd/conf/httpd.conf
+
+10. Check for Available Updates using Yum
+
+# yum check-update
+
+11. Update System using Yum
+
+# yum update
+
+16. List Enabled Yum Repositories
+# yum repolist
+
+16. List all Enabled and Disabled Yum Repositories
+
+# yum repolist all
+
+17. Install a Package from a Specific Repository
+
+# yum --enablerepo=epel install phpmyadmin
+
+19. Clean Yum Cache
+
+# yum clean all
+
+20. View History of Yum
+
+# yum history
+#yum history undo 21
+#yum history redo 30
+
+
+21.Enable and Disable repository
+#yum-config-manager --disable Localrepo_BaseOS
+#yum-config-manager --enable Localrepo_BaseOS
+
+#yum --disablerepo=* --enablerepo=appstream repolist

@@ -1,0 +1,56 @@
+What is Soft link?
+A symbolic link, also known as symlink or soft link, is a special type of file that points to source file or directory in Linux.
+
+It is like a shortcut in Windows which contains the path of the original file and not the contents.
+
+#ln -s <sourcefile>  <dest file>
+#ln -s <sourcefile full path>  <dest file path>
+
+What is Hard link?
+Hard link is a mirror copy of the original file. Deleting the original file will not impact anything,
+because the hard link file, will act as a mirror copy of the original file.
+
+#ln <source file> <destination file>
+#unlink <file/dir>
+
+Difference B/W Soft and Hard link
+----------------------------------
+
+Soft link
+-----------
+1. Soft link is similar to the file shortcut in Windows.
+2.Changes in both the files will reflect simultaneously
+3.Soft links can be created on different file systems
+4.Soft link can be created to files and directories
+5.It has different inode number and file permissions compared to the original file.
+6.When the original file is removed, the link will be inaccessible because it points to a non-existent file. This is called the hanging link.	
+
+Hard link 
+----------
+1.Hard link is a mirror copy of the original file.
+2.It is like a soft link.
+3.Hard link can only be created on the same file system.
+4.Only files can be linked
+5.It has the same inode number and file permissions.
+6.Nothing happens when the original file is removed.
+	
+What Is The Inode Number?
+An inode is a data structure that is used to store information of files on your Linux system.
+The number of inodes shows the number of files and directories you have on the system
+Every inode in the Linux structure has a unique number identified with it. 
+It is also called the index number and has the following attributes:
+
+Size
+Owner
+Date/time
+Permissions and access control
+Location on the disk
+File types
+Number of links
+Additional metadata about the file
+
+To check the list of inode numbers, use the following command:
+===============================================================
+
+#ls -li
+#stat <file/dir>

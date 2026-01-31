@@ -1,0 +1,80 @@
+Services & Daemons
+================
+Daemons are the programs that run in the background performing various tasks.
+
+RHEL/OEL/CentOS – 7/8/9
+=====================
+
+
+Start and Stop services
+=======================
+#systemctl start crond
+#systemctl start firewalld
+
+#systemctl stop crond
+#systemctl stop firewalld
+
+Restart and Reload services
+==============================
+#systemctl restart crond
+
+To reload all the configuration files forcefully on your system
+#systemctl reload crond
+
+Enable and Disable services
+#systemctl enable crond
+#systemctl enable firewalld
+
+
+#systemctl disable crond
+#systemctl disable firewalld
+
+
+#systemctl enable sshd --now
+#systemctl disable sshd --now
+
+
+# systemctl is-active sshd
+# systemctl is-enabled sshd
+
+list all services
+=====================
+
+# systemctl list-units --type service --all
+# systemctl list-unit-files --type=service
+
+list of services that are active now
+=========================================
+# systemctl -t service
+
+Reload Unit Files
+#systemctl daemon-reload
+
+
+RHEL/OEL/CentOS – 6 
+=======================
+Start and Stop services
+
+#service <service name> start/stop
+#service crond start
+#service crond stop
+#service httpd status
+#/etc/init.d/crond start
+#/etc/init.d/httpd stop
+
+Restart and Reload services
+
+#service <service name> restart/reload
+#service crond restart
+#service crond reload
+#service httpd restart
+
+#chkconfig –list|grep sshd
+
+#chkconfig crond on
+# chkconfig crond off 
+
+#service --status-all
+#service --status-all | more
+#service --status-all | grep ntpd
+#service --status-all | less

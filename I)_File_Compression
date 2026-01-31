@@ -1,0 +1,157 @@
+ZIP
+=====
+
+Create a ZIP Archive
+=======================
+#touch file{1..5}.txt
+zip files file1.txt file2.txt file3.txt file4.txt file5.txt
+
+List ZIP File Contents
+=========================
+zip -sf files.zip
+
+
+Add Specific File Types to ZIP Archive
+=========================================
+zip files *.txt
+
+Add a Directory to ZIP Archive
+==================================
+zip -r files <directory>
+
+
+
+Delete Files From ZIP Archive
+=================================
+zip -sf <archive file>
+
+zip -d <archive file> <files for deletion>
+
+zip -d files.zip file5.txt
+
+fallocate -l 1G testfile
+
+zip test.zip testfile
+ls -lh
+
+unzip test.zip
+ls -lh
+
+
+
+
+GZIP
+=====
+
+Compressing Files
+=====================
+gzip filename
+
+Compress multiple files
+gzip file1 file2 file3 file4
+
+Keep the original file
+========================
+gzip -k filename
+
+Verbose output 
+=================
+gzip -v filename 
+
+Compress all files in a directory 
+==================================
+
+gzip -r directory
+
+Decompressing Files
+========================
+
+gzip -d filename.gz
+
+gunzip filename.gz
+
+Decompress multiple files 
+===============================
+gzip -d file1.gz file2.gz file3.gz
+
+
+Decompress all files in a directory 
+========================================
+gzip -dr directory
+
+Keep the compressed file
+=============================
+gzip -dk filename.gz
+
+
+List the Compressed File Contents
+=====================================
+gzip -l filename
+gzip -lv filename
+
+
+
+
+
+TAR
+=======
+
+
+1. Create a tar Archive File in Linux
+
+tar -cvf etc-backup-14-09-12.tar /etc
+
+c – Creates a new .tar archive file.
+v – Verbosely show the .tar file progress.
+f – File name type of the archive file.
+
+
+2. Create tar.gz Archive File in Linux  (Note: tar.gz and tgz both are similar).
+============================================
+
+tar -cvzf etc-backup-14-09-12.tar.gz /etc
+
+
+Create tar.bz2 Archive File in Linux  (Note: tar.bz2 and tbz is similar to tb2).
+
+# tar -cvfj etc-backup.tar.bz2 /etc
+
+
+4. Untar tar Archive File in Linux (tar,tar.gz,tar.bz2)
+=====================================
+
+Untar files in Current Directory
+tar -xvf etc-backup.tar
+
+
+Untar files in specified Directory
+tar -xvf etc-backup.tar -C /mnt
+
+
+Untar Single file from tar File in Linux
+=============================================
+
+Single file
+tar -xvf etc-backup.tar passwd group 
+
+Multiple files from tar, tar.gz, and tar.bz2 File
+
+tar -xvf etc-backup.tar "passwd" "group"
+
+List Content of tar Archive File in Linux
+============================================
+
+tar -tvf backup.tar
+
+Add Files or Directories to tar Archive File in Linux
+=========================================================
+
+tar -rvf backup.tar file1 file2 
+
+
+Remove File and Directory from Tar Archive
+============================================
+
+tar --delete -f backup.tar.gz file1.txt
+
+ tar --delete -f backup.tar.gz '/home/tecmint/uploads'
